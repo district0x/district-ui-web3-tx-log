@@ -192,10 +192,10 @@
         (if (seq tx-log-items)
           [:div.transactions
            (dissoc props :tx-cost-currency :transaction-props :transaction-el :no-transactions-props :no-transactions-el)
-           (for [{:keys [:hash] :as tx} tx-log-items]
+           (for [[index {:keys [:hash] :as tx}] (map-indexed vector tx-log-items)]
              [transaction-el
               (merge
-               {:key (or hash (random-uuid)) ;; tx is submitted but not confirmed there is no hash yet
+               {:key index
                 :tx tx
                 :tx-cost-currency tx-cost-currency}
                transaction-props)])]
