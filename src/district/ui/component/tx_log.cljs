@@ -193,11 +193,12 @@
           [:div.transactions
            (dissoc props :tx-cost-currency :transaction-props :transaction-el :no-transactions-props :no-transactions-el)
            (for [{:keys [:hash] :as tx} tx-log-items]
-             ^{:key hash} [transaction-el
-                           (merge
-                            {:tx tx
-                             :tx-cost-currency tx-cost-currency}
-                            transaction-props)])]
+             [transaction-el
+              (merge
+               {:key (or hash (random-uuid)) ;; tx is submitted but not confirmed there is no hash yet
+                :tx tx
+                :tx-cost-currency tx-cost-currency}
+               transaction-props)])]
           [no-transactions-el no-transactions-props])))))
 
 
